@@ -23,37 +23,36 @@
 </template>
 
 <script>
-  export default {
-    name: "Todo",
-    props: ['todo'],
-    data() {
-      return {
-        actions: {
-          COMPLETE: 'complete',
-          EDIT: 'edit',
-          DELETE: 'delete',
-        }
-      }
-    },
-    computed: {
-      todoPriority() {
-        const { priority } = this.todo
+export default {
+  name: 'Todo',
+  props: ['todo'],
+  data() {
+    return {
+      actions: {
+        COMPLETE: 'complete',
+        EDIT: 'edit',
+        DELETE: 'delete',
+      },
+    };
+  },
+  computed: {
+    todoPriority() {
+      const { priority } = this.todo;
 
-        if(priority === "low") {
-          return "low-priority"
-        } else if(priority === "normal") {
-          return "normal-priority"
-        } else {
-          return "high-priority"
-        }
+      if (priority === 'low') {
+        return 'low-priority';
+      } if (priority === 'normal') {
+        return 'normal-priority';
       }
+      return 'high-priority';
     },
-    methods: {
-      fireAction(action) {
-        this.$emit(action, this.todo)
-      }
+  },
+  methods: {
+    fireAction(action) {
+      this.$emit(action, this.todo);
     },
-  }
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -69,7 +68,7 @@
     display: flex;
     align-items: center;
   }
-  
+
   .low-priority {
     box-shadow: inset $priority-width 0 0 $low-priority;
   }

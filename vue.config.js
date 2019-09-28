@@ -5,8 +5,8 @@ module.exports = {
         data: `
         @import "@/styles/_variables.scss";
         @import "@/styles/base.scss";
-        `
-      }
-    }
-  }
+        `,
+      },
+    },
+  },
 };

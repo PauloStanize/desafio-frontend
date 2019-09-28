@@ -5,7 +5,7 @@
         <h2>{{ title }}</h2>
         <p>{{ text }}</p>
       </div>
-      
+
       <div class="modal-footer">
         <button class="modal-button" @click="hide">Cancelar</button>
         <button class="modal-button" @click="confirm">Confirmar</button>
@@ -15,44 +15,44 @@
 </template>
 
 <script>
-  import UncontrolledConfirmationModal from '../plugins/UncontrolledConfirmationModal'
+import UncontrolledConfirmationModal from '../plugins/UncontrolledConfirmationModal';
 
-  export default {
-    name: 'ConfirmationModal',
-    data() {
-      return {
-        title: '',
-        text: '',
-        onConfirm: {},
-        onCancel: {},
-        visible: false,
+export default {
+  name: 'ConfirmationModal',
+  data() {
+    return {
+      title: '',
+      text: '',
+      onConfirm: {},
+      onCancel: {},
+      visible: false,
+    };
+  },
+  methods: {
+    hide() {
+      this.visible = false;
+    },
+    confirm() {
+      if (typeof this.onConfirm === 'function') {
+        this.onConfirm();
+        this.hide();
+      } else {
+        this.hide();
       }
     },
-    methods: {
-      hide() {
-        this.visible = false
-      },
-      confirm() {
-        if(typeof this.onConfirm === 'function') {
-          this.onConfirm()
-          this.hide()
-        } else {
-          this.hide()
-        }
-      },
-      show(params) {
-        this.visible = true;
-        this.title = params.title;
-        this.text = params.text;
-        this.onConfirm = params.onConfirm;
-      },
+    show(params) {
+      this.visible = true;
+      this.title = params.title;
+      this.text = params.text;
+      this.onConfirm = params.onConfirm;
     },
-    beforeMount() {
-      UncontrolledConfirmationModal.EventBus.$on('show', (params) => {
-        this.show(params)
-      })
-    }
-  }
+  },
+  beforeMount() {
+    UncontrolledConfirmationModal.EventBus.$on('show', (params) => {
+      this.show(params);
+    });
+  },
+};
 </script>
 
 <style scoped lang='scss'>
@@ -87,7 +87,7 @@
 .modal-buttons {
   bottom: 0;
   left: 0;
-  right: 0; 
+  right: 0;
   display: flex;
 }
 .modal-button {
