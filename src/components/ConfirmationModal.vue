@@ -6,9 +6,14 @@
         <p>{{ text }}</p>
       </div>
 
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button class="modal-button" @click="hide">Cancelar</button>
         <button class="modal-button" @click="confirm">Confirmar</button>
+      </div> -->
+
+      <div class="modal-footer">
+        <CustomButton class="btn btn-danger" @click="hide">Cancelar</CustomButton>
+        <CustomButton class="btn btn-primary" @click="confirm">Confirmar</CustomButton>
       </div>
     </div>
   </div>
@@ -16,9 +21,13 @@
 
 <script>
 import UncontrolledConfirmationModal from '../plugins/UncontrolledConfirmationModal';
+import CustomButton from './CustomButton';
 
 export default {
   name: 'ConfirmationModal',
+  components: {
+    CustomButton
+  },
   data() {
     return {
       title: '',
@@ -82,15 +91,7 @@ export default {
 .modal-footer {
   bottom: 0;
   display: flex;
-}
-
-.modal-buttons {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-}
-.modal-button {
-  flex-grow: 1;
+  justify-content: flex-end;
+  padding: 10px 15px;
 }
 </style>

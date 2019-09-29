@@ -18,23 +18,6 @@ export default {
   height: 35px;
 }
 
-input {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid $input-border-color;
-  border-radius: 0;
-  outline: none;
-  height: 30px;
-  width: 100%;
-  font-size: 16px;
-  margin: 0 0 8px 0;
-  padding: 0;
-}
-
-input:focus {
-  box-shadow: 0 1px 0 0 $input-border-color;
-}
-
 label {
   position: relative;
   top: -60px;

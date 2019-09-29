@@ -1,22 +1,29 @@
 <template>
   <div>
-    <button @click="showSaveForm({})">Criar tarefa</button>
-    <SaveForm :model.sync="this.saveModel" v-if="this.isSaveFormShowing" v-on:cancel="isSaveFormShowing = false" v-on:submit="saveTodo">
+    <div class="list-header">
+      <div>Lista de tarefas</div>
+      <SearchInput />
+      <CustomButton class="btn btn-primary" @click="showSaveForm({})">Criar tarefa</CustomButton>
+    </div>
 
-    </SaveForm>
-    <Todo v-for="(todo, index) in todos" v-bind:key="index" :todo.sync="todo" v-on:complete="completeTodo" v-on:delete="deleteTodo" v-on:edit="showSaveForm"/>
+    <SaveForm :model.sync="this.saveModel" v-if="this.isSaveFormShowing" v-on:cancel="isSaveFormShowing = false" v-on:submit="saveTodo" />
+    <TodoItem v-for="(todo, index) in todos" v-bind:key="index" :todo.sync="todo" v-on:complete="completeTodo" v-on:delete="deleteTodo" v-on:edit="showSaveForm"/>
   </div>
 </template>
 
 <script>
-import Todo from './Todo';
+import TodoItem from './TodoItem';
 import SaveForm from '../SaveForm';
+import CustomButton from '../CustomButton';
+import SearchInput from '../SearchInput';
 
 export default {
   name: 'TodoList',
   components: {
-    Todo,
+    TodoItem,
     SaveForm,
+    CustomButton,
+    SearchInput,
   },
   methods: {
     showSaveForm(todo) {
@@ -86,5 +93,20 @@ export default {
 </script>
 
 <style scoped>
+  .list-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap;
+    align-items: center;
+  }
 
+  .list-header div {
+    font-size: 20px;
+  }
+
+  .list-header .search-input {
+    flex-grow: 1;
+    margin: 0 20px;
+  }
 </style>

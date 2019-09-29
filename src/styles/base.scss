@@ -21,3 +21,61 @@
   padding-left: $spacer !important;
   padding-right: $spacer !important;
 }
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: .3s ease-out;
+  letter-spacing: .5px;
+  color: #fff;
+  font-size: 15px;
+  padding: 10px 20px;
+  border: none;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #0070e8 !important;
+}
+
+.btn-primary:hover {
+  background-color: #007bffd9;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-danger:focus,
+.btn-danger:active {
+  background-color: #cc3342 !important;
+}
+
+.btn-danger:hover {
+  background-color: #dc3545db;
+}
+
+input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid $input-border-color;
+  border-radius: 0;
+  outline: none;
+  height: 30px;
+  width: 100%;
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+input:focus {
+  box-shadow: 0 1px 0 0 $input-border-color;
+}

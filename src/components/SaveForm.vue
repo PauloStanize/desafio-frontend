@@ -1,6 +1,10 @@
 <template>
   <div class="modal-area">
     <div class="modal-wrapper">
+      <div class="modal-header">
+        <div v-if="innerModel.id">Editar tarefa</div>
+        <div v-else>Cadastrar tarefa</div>
+      </div>
       <div class="modal-body">
         <CustomInput v-model="innerModel.title" placeholder="Título" />
         <CustomInput v-model="innerModel.description" placeholder="Descrição" />
@@ -9,8 +13,8 @@
       </div>
 
       <div class="modal-footer">
-        <button class="modal-button" @click="cancel">Cancelar</button>
-        <button class="modal-button" @click="submit">Salvar</button>
+        <CustomButton class="btn btn-danger" @click="cancel">Cancelar</CustomButton>
+        <CustomButton class="btn btn-primary" @click="submit">Salvar</CustomButton>
       </div>
     </div>
   </div>
@@ -19,13 +23,15 @@
 <script>
 import CustomInput from './CustomInput';
 import CustomSelect from './CustomSelect';
+import CustomButton from './CustomButton';
 
 export default {
   name: 'SaveForm',
-  props: ['isEditing', 'model'],
+  props: ['model'],
   components: {
     CustomInput,
     CustomSelect,
+    CustomButton,
   },
   data() {
     return {
@@ -48,7 +54,7 @@ export default {
     };
   },
   methods: {
-    submit() {
+    submit(e) {
       this.$emit('submit', { ...this.innerModel });
     },
     cancel() {
@@ -78,6 +84,11 @@ export default {
   width: 60%;
 }
 
+.modal-header {
+  font-size: 30px;
+  padding: 25px 20px 0 20px;
+}
+
 .modal-body {
   padding: 20px;
 }
@@ -85,15 +96,7 @@ export default {
 .modal-footer {
   bottom: 0;
   display: flex;
-}
-
-.modal-buttons {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-}
-.modal-button {
-  flex-grow: 1;
+  justify-content: flex-end;
+  padding: 10px 15px;
 }
 </style>
