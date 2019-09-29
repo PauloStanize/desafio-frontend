@@ -1,5 +1,5 @@
 <template>
-  <button v-on:click="$emit('click', $event)">
+  <button @click="$emit('click', $event)">
     <slot>Salvar</slot>
   </button>
 </template>

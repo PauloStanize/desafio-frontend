@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Desenvolver um Web-app capaz de criar, editar, remover e ordenar os itens de um Todo-list.",
+    "status": "closed",
+    "description": "Configurações: Os campos para filtro/busca são: Título do item, Status (itens aberto, concluída), Prioridade (Baixa, Média e Alta)",
+    "priority": "low"
+  },
+  {
+    "id": 2,
+    "title": "O Web-App deverá ser capaz de salvar os dados, (pode ser desde localStorage até o Firebase).",
+    "status": "opened",
+    "description": "Adicionar o botão de remoção",
+    "priority": "normal"
+  },
+  {
+    "id": 3,
+    "title": "Desenvolver uma API para consumir e servir estes dados.",
+    "status": "opened",
+    "description": "Desenvolver todo o app em Vue.",
+    "priority": "high"
+  }
+]

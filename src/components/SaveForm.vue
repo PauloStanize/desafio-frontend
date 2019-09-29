@@ -8,8 +8,8 @@
       <div class="modal-body">
         <CustomInput v-model="innerModel.title" placeholder="Título" />
         <CustomInput v-model="innerModel.description" placeholder="Descrição" />
-        <CustomSelect v-model="innerModel.status" placeholder="Status" v-bind:options="statusSeed" />
-        <CustomSelect v-model="innerModel.priority" placeholder="Prioridade" v-bind:options="prioritySeed" />
+        <CustomSelect v-model="innerModel.status" placeholder="Status" :options="statuses" />
+        <CustomSelect v-model="innerModel.priority" placeholder="Prioridade" :options="priorities" />
       </div>
 
       <div class="modal-footer">
@@ -24,6 +24,7 @@
 import CustomInput from './CustomInput';
 import CustomSelect from './CustomSelect';
 import CustomButton from './CustomButton';
+import { prioritySeed, statusSeed } from '@/assets/optionsSeed';
 
 export default {
   name: 'SaveForm',
@@ -42,15 +43,8 @@ export default {
         status: this.model.status === undefined ? 'opened' : this.model.status,
         priority: this.model.priority || '',
       },
-      prioritySeed: [
-        { value: 'low', text: 'Baixa' },
-        { value: 'normal', text: 'Média' },
-        { value: 'high', text: 'Alta' },
-      ],
-      statusSeed: [
-        { value: 'opened', text: 'Aberto' },
-        { value: 'closed', text: 'Fechado' },
-      ],
+      priorities: prioritySeed,
+      statuses: statusSeed,
     };
   },
   methods: {

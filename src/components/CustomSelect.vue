@@ -1,7 +1,7 @@
 <template>
   <div class="input-field">
-    <select v-bind:value="value" v-on:input="$emit('input', $event.target.value)">
-      <option v-for="(option, index) in options" v-bind:value="option.value" v-bind:key="index">{{option.text}}</option>
+    <select :value="value" @change="$emit('input', $event.target.value)">
+      <option v-for="(option, index) in options" :value="option.value" :key="index">{{option.text}}</option>
     </select>
     <label>{{placeholder}}</label>
   </div>
@@ -18,19 +18,6 @@ export default {
 .input-field {
   margin-top: 30px;
   height: 35px;
-}
-
-select {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid $input-border-color;
-  border-radius: 0;
-  outline: none;
-  height: 30px;
-  width: 100%;
-  font-size: 16px;
-  margin: 0 0 8px 0;
-  padding: 0;
 }
 
 label {

@@ -1,6 +1,6 @@
 <template>
   <div class="input-field">
-    <input v-bind:value="value" v-on:input="$emit('input', $event.target.value)">
+    <input :value="value" @input="$emit('input', $event.target.value)">
     <label>{{placeholder}}</label>
   </div>
 </template>
