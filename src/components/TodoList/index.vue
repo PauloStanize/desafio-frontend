@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Qs from 'qs'
+import Qs from 'qs';
 import TodoItem from "./TodoItem";
 import SaveForm from "../SaveForm";
 import CustomButton from "@/components/CustomButton";

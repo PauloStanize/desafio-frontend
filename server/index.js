@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const env = require('dotenv').config();
 const routes = require('./routes/index')
 const path = require('path')
 const cors = require('cors')
@@ -14,7 +15,7 @@ const start = () => {
   })
 
   const app = express()
-  const port = 1234
+  const port = process.env.API_PORT || 1234
   const public = '/public'
 
   app.use(cors())
