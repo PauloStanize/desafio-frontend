@@ -5,7 +5,7 @@
     <TodoItem
       v-for="(todo, index) in todos"
       :key="index"
-      :todo.sync="todo"
+      :todo="todo"
       @complete="completeTodo"
       @delete="deleteTodo"
       @edit="showSaveForm"
@@ -21,11 +21,13 @@
 </template>
 
 <script>
+import Qs from 'qs'
 import TodoItem from "./TodoItem";
 import SaveForm from "../SaveForm";
 import CustomButton from "@/components/CustomButton";
 import Header from "@/components/Header";
 import todoSeed from "@/assets/todoSeed";
+import Api from '@/api';
 
 export default {
   name: "TodoList",
@@ -36,58 +38,58 @@ export default {
     Header
   },
   methods: {
-    filterTodos({ title = "", priority = "all", status = "all" }) {
-      this.todos = todoSeed
-
-      if (!!title) {
-        this.todos = this.todos.filter(todo => todo.title.toUpperCase().includes(title.toUpperCase()));
-      }
-
-      if(priority !== 'all') {
-        this.todos = this.todos.filter(todo => todo.priority === priority)
-      }
-
-      if(status !== 'all') {
-        this.todos = this.todos.filter(todo => todo.status === status)
-      }
-    },
-    fetchTodos(query) {
-      this.currentFetchQuery = { ...this.currentFetchQuery, ...query };
-      this.filterTodos(this.currentFetchQuery)
-    },
     showSaveForm(todo) {
       this.isSaveFormShowing = true;
       this.saveModel = todo;
     },
-    saveTodo(todo) {
-      const index = todo.id && this.todos.findIndex(el => el.id === todo.id);
+    async fetchTodos(query) {
+      this.currentFetchQuery = { ...this.currentFetchQuery, ...query };
+
+      const queryString = Qs.stringify(this.currentFetchQuery)
+      const res = await Api.get(`/todos?${queryString}`)
+
+      this.todos = res.data
+    },
+    async saveTodo(todo) {
+      let res
+
+      if(todo.id) {
+        res = await Api.put(`/todos/${todo.id}`, {
+          ...todo
+        })
+      } else {
+        res = await Api.post('/todos', {
+          ...todo
+        })
+      }
+
+      const index = todo.id && this.todos.findIndex(el => el.id === todo.id)
 
       if (index > -1) {
-        this.todos[index] = todo;
+        this.$set(this.todos, index, res.data)
       } else {
-        this.todos.push({
-          ...todo,
-          id: this.todos.length + 1
-        });
+        this.todos.push(res.data)
       }
 
       this.isSaveFormShowing = false;
     },
-    completeTodo(todo) {
-      const index = this.todos.indexOf(todo);
-      const currentStatus = this.todos[index].status;
-
-      this.todos[index].status =
-        currentStatus === "opened" ? "closed" : "opened";
+    async completeTodo(todo) {
+      await this.saveTodo({
+        ...todo,
+        status: todo.status === "opened" ? "closed" : "opened"
+      })
     },
-    deleteTodo(todo) {
+    async deleteTodo(todo) {
       const index = this.todos.indexOf(todo);
 
       this.$uncontrolledConfirmationModal.show({
         title: "Excluir",
         text:
           "Tem certeza que deseja excluir isto? A ação não poderá ser desfeita",
-        onConfirm: () => this.todos.splice(index, 1)
+        onConfirm: async () => {
+          await Api.delete(`/todos/${todo.id}`)
+          this.todos.splice(index, 1)
+        }
       });
     }
   },
@@ -95,11 +97,18 @@ export default {
     return {
       isSaveFormShowing: false,
       saveModel: {},
-      todos: todoSeed,
+      todos: [],
       currentFetchQuery: {}
     };
+  },
+  async created() {
+    const res = await Api.get("/todos", {
+      responseType: "json"
+    })
+
+    this.todos = res.data
   }
-};
+}
 </script>
 
 <style scoped>
